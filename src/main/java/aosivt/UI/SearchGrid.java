@@ -21,7 +21,7 @@ public class SearchGrid extends Grid {
     public  SearchGrid()
     {
 
-        this.setCaption("Сводная таблица");
+//        this.setCaption("Сводная таблица");
 
         this.setWidth(100, Unit.PERCENTAGE);
 
@@ -32,6 +32,9 @@ public class SearchGrid extends Grid {
         this.setFilterGrid(grid);
 
         this.setColumnReorderingAllowed(true);
+
+        this.setHeight(50.0f,Unit.PICAS);
+//        this.setWidth(100.0f,Unit.PICAS);
 
         this.getColumn(this.getColumns().get(1).getPropertyId()).setHeaderCaption("Наименование организации");
 

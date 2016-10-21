@@ -1,8 +1,9 @@
 package aosivt.UI;
 
-import aosivt.AppData.SaveAppData;
 import aosivt.ProjectEntityManager.ProEntityManager;
-import com.vaadin.ui.*;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.Date;
 
@@ -29,70 +30,56 @@ public class MainLayout extends VerticalLayout{
 
     public MainLayout()
     {
-        ProEntityManager manager = new ProEntityManager();
+
+        this.init_all_field();
+
+        this.addComponent(new EditLayout());
+
+        this.addComponent(new SearchLayout());
+
+    }
+    public void init_all_field()
+        {
+            ProEntityManager manager = new ProEntityManager();
+            id_protocol = new TextField("Индетификатор протокола");
+            id_protocol.setSizeFull();
+            id_protocol_doc = new TextField("ИП документ");
+            id_protocol_doc.setValue("1");
+            id_protocol_doc.setSizeFull();
 
 
-        id_protocol = new TextField("Индетификатор протокола");
-        id_protocol_doc = new TextField("ИП документ");
-        id_protocol_doc.setValue("1");
+            view_protocol = new ComboBoxViewProtocol();
+            view_protocol.setContainerDataSource(manager.getProtocol_list());
+            view_protocol.setSizeFull();
+
+            organization_name = new ComboBoxOrganizations();
+            organization_name.setSizeFull();;
+
+            sum = new TextField("Сумма");
+            sum.setValue("1");
+            sum.setSizeFull();
+
+            reason = new TextField("Причина");
+            reason.setValue("1");
+            reason.setSizeFull();
+
+            coment = new TextField("Коментарий");
+            coment.setValue("1");
+            coment.setSizeFull();
 
 
+            date_open = new DateField("Дата открытия");
+            date_open.setValue(new Date());
 
-        organization_name = new ComboBoxOrganizations();
+            date_close = new DateField("Дата закрытия");
+            date_close.setValue(new Date());
 
-        sum = new TextField("Сумма");
-        sum.setValue("1");
-        reason = new TextField("Причина");
-        reason.setValue("1");
-
-        coment = new TextField("Коментарий");
-        coment.setValue("1");
-
-        date_open = new DateField("Дата открытия");
-        date_open.setValue(new Date());
-
-        date_close = new DateField("Дата закрытия");
-        date_close.setValue(new Date());
-
-        view_protocol = new ComboBoxViewProtocol();
-        view_protocol.setContainerDataSource(manager.getProtocol_list());
 
 
 //        search_table = new SearchTable();
-        search_grid = new SearchGrid();
-
-//        search_table.setContainerDataSource(search_table.getrebaseBeanViewProtocol(view_protocol.getBeanViewProtocol()));
-
-        ButtonSaveData save_data = new ButtonSaveData();
-        save_data.addClickListener(e -> SaveAppData.setComment(sum.getValue())
-        );
-//        Button save_data = new Button();
-        this.addComponent(new HorizontalLayout(id_protocol));
-
-        this.addComponent(new HorizontalLayout(date_open));
-
-        this.addComponent(new HorizontalLayout(id_protocol_doc,view_protocol));
-
-        this.addComponent(organization_name);
-
-        this.addComponent(new HorizontalLayout(reason,coment));
-
-        this.addComponent(new HorizontalLayout(date_close));
+            search_grid = new SearchGrid();
 
 
-
-        this.addComponent(sum);
-        this.addComponent(save_data);
-        this.addComponent(search_grid);
-
-    }
-
-//    public MainLayout(Layout _layout)
-//    {
-//        this.layout = _layout;
-//        TextField Id_protocol = new TextField("Привет");
-//        this.layout.addComponents(Id_protocol);
-//
-//    }
+        }
 
 }
