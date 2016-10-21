@@ -25,6 +25,7 @@ public class MainLayout extends VerticalLayout{
     public static DateField date_close;
     public static ComboBoxViewProtocol view_protocol;
     public static SearchTable search_table;
+    public static SearchGrid search_grid;
 
     public MainLayout()
     {
@@ -57,8 +58,9 @@ public class MainLayout extends VerticalLayout{
         view_protocol.setContainerDataSource(manager.getProtocol_list());
 
 
-        search_table = new SearchTable();
-        search_table.setContainerDataSource(search_table.getBeanGetAppData());
+//        search_table = new SearchTable();
+        search_grid = new SearchGrid();
+
 //        search_table.setContainerDataSource(search_table.getrebaseBeanViewProtocol(view_protocol.getBeanViewProtocol()));
 
         ButtonSaveData save_data = new ButtonSaveData();
@@ -81,7 +83,7 @@ public class MainLayout extends VerticalLayout{
 
         this.addComponent(sum);
         this.addComponent(save_data);
-        this.addComponent(search_table);
+        this.addComponent(search_grid);
 
     }
 
