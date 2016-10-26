@@ -19,8 +19,34 @@
 //    document.getElementById('protocol').change;
   function test_con()
   {
-  document.getElementById("protocol").value = "254254";
-  alert(document.getElementById("protocol").value);
+//  document.getElementById("protocol").value = "254254";
+  //alert(document.getElementById("protocol").value);
+        var _input = document.getElementById("protocol");
+//        var _tag_element = document.getElementsByTagName('protocol');
+//        var _tag_element = document.getElementById('protocol');
+
+//        console.log(_tag_element[0].value);
+        _input.addEventListener("keydown" , function () {
+          var _output="";
+          var _output_slash="";
+          _output_slash = _input.value;
+          if (_output_slash.length == 4)
+          {
+            _output_slash = _input.value + '/';
+
+            _input.value = _output_slash
+          }
+          else if (_output_slash.length == 8) {
+            _output_slash = _input.value + '/';
+            _input.value = _output_slash
+          }
+          else {
+            _output_slash = _input.value;
+            _input.value = _output_slash
+          }
+        })
+        console.log(_input.value.length);
+
   }
 //
 //  window.onload = test_con();
