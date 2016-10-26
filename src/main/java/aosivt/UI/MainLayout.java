@@ -34,7 +34,7 @@ public class MainLayout extends VerticalLayout{
         id_protocol = new TextField("Индетификатор протокола");
         id_protocol_doc = new TextField("ИП документ");
         id_protocol_doc.setValue("1");
-
+        id_protocol.setId("protocol");
 
 
         organization_name = new ComboBoxOrganizations();

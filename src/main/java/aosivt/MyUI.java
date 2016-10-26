@@ -3,6 +3,7 @@ package aosivt;
 import aosivt.Entity.ViewProtocol;
 import aosivt.UI.MainLayout;
 import aosivt.util.HibernateUtil;
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -21,7 +22,13 @@ import javax.servlet.annotation.WebServlet;
  * The UI is initialized using {@link #init(VaadinRequest)}. This method is intended to be 
  * overridden to add component to the user interface and initialize non-component functionality.
  */
+
 @Theme("mytheme")
+@JavaScript({
+        "vaadin://jquery-3.1.1.js",
+
+        "vaadin://test_con.js"
+})
 public class MyUI extends UI {
 
     @Override
@@ -29,7 +36,10 @@ public class MyUI extends UI {
 
 //        test_insert();
         final VerticalLayout layout = new MainLayout();
-
+        com.vaadin.ui.JavaScript.getCurrent().execute(
+                "var field = document.getElementById('protocol').onkeyup = test_con();"
+//                 "field.dispatchEvent(new Event('change'));"
+        );
 
         
         setContent(layout);
