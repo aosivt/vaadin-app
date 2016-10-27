@@ -85,15 +85,11 @@ public class ButtonSaveData extends Button {
         );
         tableProtocol.setDate_out(SaveAppData.getDate_out());
         tableProtocol.setSum(SaveAppData.getSum());
-        tableProtocol.setOrganization_id(Long.parseLong("1"));
+        tableProtocol.setOrganization_id(organization.getOrganization_id());
         tableProtocol.setView_protocol_id(SaveAppData.getId_view_protocol());
-
-//        tableProtocol.setOrganization_id(organization.getOrganization_id());
-//        tableProtocol.setOrganization(organization);
-//        tableProtocol.setReview(review);
-//        tableProtocol.setReason(reason);
-//        tableProtocol.setDocument(document);
-
+        tableProtocol.setOrganization(organization);
+        tableProtocol.setReview(review);
+        tableProtocol.setReason(reason);
 
         session.save(tableProtocol);
         transaction.commit();

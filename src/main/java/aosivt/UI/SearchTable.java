@@ -5,8 +5,12 @@ import aosivt.Entity.PivotTableProtocol;
 import aosivt.Entity.ViewProtocol;
 import aosivt.util.HibernateUtil;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.filter.SimpleStringFilter;
+import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.themes.ValoTheme;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -19,6 +23,8 @@ public class SearchTable extends Table {
 
     public SearchTable()
     {
+
+
         //final Container container = getBeanViewProtocol();
 
 
@@ -29,6 +35,26 @@ public class SearchTable extends Table {
 
 
         this.setWidth(100, Unit.PERCENTAGE);
+
+        this.setContainerDataSource(this.getBeanGetAppData());
+
+
+//        this.setColumnHeaders(
+//                new String[]{
+//                        "Наименование организации","Сумма",
+//                        "Дата открытия","Дата закрытия",
+//                        "Номер протокола","Наименование организации",
+//                        "Коментарий","Коментарий","Коментарий","Коментарий",
+//                });
+//        разрешена фильтрация данных
+        this.setColumnFiltering(true);
+//        разрешена реорганизация данных
+//        Object column_header = this.getColumnHeader("Наименование организации");
+        this.setColumnReorderingAllowed(true);
+
+
+
+
 
 //        final Action actionMark = new Action("Mark");
 //        final Action actionUnmark = new Action("Unmark");
@@ -115,6 +141,34 @@ public class SearchTable extends Table {
 
         Query q = session.createQuery("From PivotTableProtocol");
 
+
+
+
+        this.addItem(new Object[] {
+                new TextField("Edit"), new TextField("Edit"), new TextField("Edit"),
+                new TextField("Edit"), new TextField("Edit"), new TextField("Edit"),
+                new TextField("Edit"), new TextField("Edit"), new TextField("Edit"),
+                new TextField("Edit")}, 1);
+
+        this.setPageLength(0);
+//        this.setColumnHeaders("First Name", "Last Name", "");
+//        this.setFooterVisible(true);
+//        this.setColumnFooter("first", "Footer");
+//        this.setColumnFooter("last", "");
+//        this.setColumnFooter("actions", "");
+//
+//        itemContainer.addNestedContainerProperty("actions1", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions2", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions3", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions4", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions5", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions6", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions7", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions8", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions9", Component.class, null);
+//        itemContainer.addNestedContainerProperty("actions10", Component.class, null);
+        itemContainer.addBean(new GetAppData());
+
         List<PivotTableProtocol> resultlist = q.list();
         GetAppData appData;
         for (PivotTableProtocol next : resultlist) {
@@ -129,6 +183,8 @@ public class SearchTable extends Table {
             itemContainer.addBean(appData);
         }
         session.close();
+
+
 
         return itemContainer;
     }
@@ -188,5 +244,47 @@ public class SearchTable extends Table {
         }
         return itemContainer;
 
+    }
+
+    private void setColumnFiltering(boolean filtered) {
+//            // Add new TextFields to each column which filters the data from
+//            // that column
+//            String columnId = ExampleUtil.BUDGET_ITEM_NAME_PROPERTY_ID
+//                    .toString();
+//            TextField filter = getColumnFilter(columnId);
+//            filteringHeader.getCell(columnId).setComponent(filter);
+//            filteringHeader.getCell(columnId).setStyleName("filter-header");
+//        } else if (!filtered && filteringHeader != null) {
+//            sample.removeHeaderRow(filteringHeader);
+//            filteringHeader = null;
+//        }
+    }
+    private TextField getColumnFilter(final Object columnId) {
+        TextField filter = new TextField();
+        filter.setWidth("100%");
+        filter.addStyleName(ValoTheme.TEXTFIELD_TINY);
+        filter.setInputPrompt("Filter");
+        filter.addTextChangeListener(new FieldEvents.TextChangeListener() {
+
+            SimpleStringFilter filter = null;
+
+            @Override
+            public void textChange(FieldEvents.TextChangeEvent event) {
+                Filterable f = (Filterable) MainLayout.search_table.getContainerDataSource();
+
+                // Remove old filter
+                if (filter != null) {
+                    f.removeContainerFilter(filter);
+                }
+
+                // Set new filter for the "Name" column
+                filter = new SimpleStringFilter(columnId, event.getText(),
+                        true, true);
+                f.addContainerFilter(filter);
+
+//                MainLayout.search_table.cancelEditor();
+            }
+        });
+        return filter;
     }
 }
