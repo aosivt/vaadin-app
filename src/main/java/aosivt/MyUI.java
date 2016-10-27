@@ -3,6 +3,7 @@ package aosivt;
 import aosivt.Entity.ViewProtocol;
 import aosivt.UI.MainLayout;
 import aosivt.util.HibernateUtil;
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -22,6 +23,11 @@ import javax.servlet.annotation.WebServlet;
  * overridden to add component to the user interface and initialize non-component functionality.
  */
 @Theme("mytheme")
+@JavaScript({
+        "vaadin://jquery-3.1.1.js",
+
+        "vaadin://test_con.js"
+})
 public class MyUI extends UI {
 
     @Override

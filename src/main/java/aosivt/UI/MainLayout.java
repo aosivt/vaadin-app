@@ -43,6 +43,8 @@ public class MainLayout extends VerticalLayout{
             ProEntityManager manager = new ProEntityManager();
             id_protocol = new TextField("Индетификатор протокола");
             id_protocol.setSizeFull();
+            id_protocol.setId("protocol");
+
             id_protocol_doc = new TextField("ИП документ");
             id_protocol_doc.setValue("1");
             id_protocol_doc.setSizeFull();
