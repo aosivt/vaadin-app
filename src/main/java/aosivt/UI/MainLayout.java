@@ -1,6 +1,7 @@
 package aosivt.UI;
 
 import aosivt.ProjectEntityManager.ProEntityManager;
+import aosivt.UI.Menu.MainMenu;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -33,9 +34,13 @@ public class MainLayout extends VerticalLayout{
 
         this.init_all_field();
 
+        this.addComponent(new MainMenu());
+
         this.addComponent(new EditLayout());
 
         this.addComponent(new SearchLayout());
+
+
 
     }
     public void init_all_field()
