@@ -28,13 +28,13 @@ public class ButtonSaveData extends Button {
 //        String _name_org = ((Organization)MainLayout.organization_name.getValue()).getName_organization()==null?
 //                    ((Organization)MainLayout.organization_name.getValue()).getName_organization():
 //                    MainLayout.organization_name.getValue().toString();
-        SaveAppData.setName_organization((MainLayout.coment.getValue()));
+        SaveAppData.setName_organization((MainLayout.review.getValue()));
 
 
 
-        SaveAppData.setComment((MainLayout.coment.getValue()));
+        SaveAppData.setReview((MainLayout.review.getValue()));
         SaveAppData.setReason((MainLayout.reason.getValue()));
-        SaveAppData.setReason((MainLayout.coment.getValue()));
+        SaveAppData.setReason((MainLayout.review.getValue()));
 
         SaveAppData.setDate_in((MainLayout.date_open.getValue()));
         SaveAppData.setDate_out((MainLayout.date_close.getValue()));
@@ -96,7 +96,7 @@ public class ButtonSaveData extends Button {
 //        transaction.commit();
 
 
-        MainLayout.search_table.setContainerDataSource(MainLayout.search_table.getBeanGetAppData());
+        MainLayout.search_grid.setContainerDataSource(MainLayout.search_grid.getBeanGetAppData());
 
         session.clear();
         session.close();
@@ -105,7 +105,7 @@ public class ButtonSaveData extends Button {
 
 //        HibernateUtil.shutdown();
         Notification.show("Value changed:",
-                String.valueOf(SaveAppData.getComment()
+                String.valueOf(SaveAppData.getId_protocol()
 //                        + ((ViewProtocol)e.getProperty().getValue()).getView_protocol_id().toString()
                 ),
                 Notification.Type.TRAY_NOTIFICATION);

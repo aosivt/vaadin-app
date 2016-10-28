@@ -29,7 +29,7 @@ public class ComboBoxOrganizations extends ComboBox{
         this.addValueChangeListener(e -> Notification.show("Value changed:",
                 String.valueOf(((Organization)(e.getProperty().getValue())).getOrganization_id()),
                 Notification.Type.TRAY_NOTIFICATION));
-this.addDetachListener (e -> Notification.show("Value changed:!!!!!11111",
+        this.addDetachListener (e -> Notification.show("Value changed:!!!!!11111",
         String.valueOf(e.toString()),
         Notification.Type.TRAY_NOTIFICATION));
 

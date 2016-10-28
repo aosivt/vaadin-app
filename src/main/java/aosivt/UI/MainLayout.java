@@ -20,7 +20,7 @@ public class MainLayout extends VerticalLayout{
 
     public static ComboBoxOrganizations organization_name;
     public static TextField reason;
-    public static TextField coment;
+    public static TextField review;
 
     public static DateField date_open;
     public static DateField date_close;
@@ -43,6 +43,7 @@ public class MainLayout extends VerticalLayout{
             ProEntityManager manager = new ProEntityManager();
             id_protocol = new TextField("Индетификатор протокола");
             id_protocol.setSizeFull();
+            id_protocol.setId("protocol");
             id_protocol_doc = new TextField("ИП документ");
             id_protocol_doc.setValue("1");
             id_protocol_doc.setSizeFull();
@@ -63,9 +64,9 @@ public class MainLayout extends VerticalLayout{
             reason.setValue("1");
             reason.setSizeFull();
 
-            coment = new TextField("Коментарий");
-            coment.setValue("1");
-            coment.setSizeFull();
+            review = new TextField("Коментарий");
+            review.setValue("1");
+            review.setSizeFull();
 
 
             date_open = new DateField("Дата открытия");

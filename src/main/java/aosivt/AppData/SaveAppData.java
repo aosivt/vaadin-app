@@ -16,7 +16,6 @@ public final class SaveAppData {
     private static String name_organization;
     private static String reason;
     private static String review;
-    private static String comment;
     private static double sum;
 
     public SaveAppData()
@@ -69,14 +68,6 @@ public final class SaveAppData {
 
     public static void setReason(String reason) {
         SaveAppData.reason = reason;
-    }
-
-    public static String getComment() {
-        return comment;
-    }
-
-    public static void setComment(String comment) {
-        SaveAppData.comment = comment;
     }
 
     public static double getSum() {

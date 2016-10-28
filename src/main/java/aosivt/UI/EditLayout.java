@@ -1,6 +1,5 @@
 package aosivt.UI;
 
-import aosivt.AppData.SaveAppData;
 import aosivt.UI.Panel.CommentSumPanel;
 import aosivt.UI.Panel.DatePanel;
 import aosivt.UI.Panel.OrganizationPanel;
@@ -59,8 +58,8 @@ this.generateBorderLayout();
 //        this.addComponent(center, 1, 1);
 
         ButtonSaveData save_data = new ButtonSaveData();
-        save_data.addClickListener(e -> SaveAppData.setComment(MainLayout.sum.getValue())
-        );
+//        save_data.addClickListener(e -> SaveAppData.setComment(MainLayout.sum.getValue())
+//        );
         save_data.setSizeFull();
 
         this.addComponent(save_data,2,2);

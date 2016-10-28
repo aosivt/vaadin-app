@@ -21,9 +21,8 @@ public class SearchGrid extends Grid {
     public  SearchGrid()
     {
 
-//        this.setCaption("Сводная таблица");
-
         this.setWidth(100, Unit.PERCENTAGE);
+        this.setHeight(30,Unit.PICAS);
 
         BeanItemContainer<GetAppData> grid = this.getBeanGetAppData();
 
@@ -33,12 +32,12 @@ public class SearchGrid extends Grid {
 
         this.setColumnReorderingAllowed(true);
 
-        this.setHeight(50.0f,Unit.PICAS);
-//        this.setWidth(100.0f,Unit.PICAS);
-
-        this.getColumn(this.getColumns().get(1).getPropertyId()).setHeaderCaption("Наименование организации");
-
-
+        this.setColumnOrder("id_protocol","name_organization","date_in","date_out","sum");
+        this.getColumn("id_protocol").setHeaderCaption("Номер протокола");
+        this.getColumn("name_organization").setHeaderCaption("Наименование организации");
+        this.getColumn("date_in").setHeaderCaption("Дата возбуждения");
+        this.getColumn("date_out").setHeaderCaption("Дата закрытия");
+        this.getColumn("sum").setHeaderCaption("Сумма");
 
     }
 
@@ -58,8 +57,6 @@ public class SearchGrid extends Grid {
             appData.setDate_out(next.getDate_out()==null?"Не определена":next.getDate_out().toString());
             appData.setId_protocol(next.getProtocol_id());
             appData.setName_organization(next.getOrganization()==null?"Не определена":next.getOrganization().getName_organization());
-            appData.setReason(next.getReason()==null?"Не определена":next.getReason().getText_reason());
-            appData.setReview(next.getReview()==null?"Не определена":next.getReview().getText_review());
             itemContainer.addBean(appData);
         }
         session.close();
