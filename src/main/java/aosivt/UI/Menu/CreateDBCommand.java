@@ -53,5 +53,6 @@ public class CreateDBCommand implements  MenuBar.Command {
         transaction.commit();
 
         session.close();
+//        http://javatalks.ru/topics/34733
     }
 }
