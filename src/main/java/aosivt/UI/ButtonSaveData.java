@@ -15,6 +15,7 @@ public class ButtonSaveData extends Button {
     public ButtonSaveData()
     {
         this.setCaption("Сохранить данные");
+        this.setSizeFull();
         this.addClickListener(e -> this.saveData());
 
     }
@@ -73,8 +74,6 @@ public class ButtonSaveData extends Button {
 
         session.save(tableProtocol);
         transaction.commit();
-
-
 
 
         session.clear();

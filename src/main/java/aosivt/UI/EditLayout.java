@@ -58,10 +58,14 @@ this.generateBorderLayout();
 //        this.addComponent(center, 1, 1);
 
         ButtonSaveData save_data = new ButtonSaveData();
+        ButtonUpdateData updateData = new ButtonUpdateData();
+        ButtonDeleteData deleteData = new ButtonDeleteData();
 //        save_data.addClickListener(e -> SaveAppData.setComment(MainLayout.sum.getValue())
 //        );
-        save_data.setSizeFull();
 
+
+        this.addComponent(deleteData,0,2);
+        this.addComponent(updateData,1,2);
         this.addComponent(save_data,2,2);
 
 //        this.setRowExpandRatio(0, 1.0f);

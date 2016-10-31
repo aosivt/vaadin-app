@@ -57,13 +57,6 @@ public class CreateDBCommand implements  MenuBar.Command {
     }
     private void insertIntoDBProtocolView(ViewProtocol _new_protocol_view)
     {
-
-
-
-
-
-
-
 //        http://javatalks.ru/topics/34733
     }
 }

@@ -7,10 +7,13 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.jboss.jandex.Main;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -39,6 +42,20 @@ public class SearchGrid extends Grid {
         this.getColumn("date_out").setHeaderCaption("Дата закрытия");
         this.getColumn("sum").setHeaderCaption("Сумма");
 
+        this.addItemClickListener(itemClickEvent ->
+        {
+            Notification.show(((GetAppData)itemClickEvent.getItemId()).getId_protocol().toString());
+            String protocol_id = ((GetAppData)itemClickEvent.getItemId()).getId_protocol().toString();
+            MainLayout.id_protocol.setValue(protocol_id);
+
+            MainLayout.sum.setValue(String.valueOf(((GetAppData)itemClickEvent.getItemId()).getSum()));
+
+            MainLayout.date_open.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_in()));
+            MainLayout.date_close.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_out()));
+
+
+        }
+        );
     }
 
     public BeanItemContainer<GetAppData> getBeanGetAppData()

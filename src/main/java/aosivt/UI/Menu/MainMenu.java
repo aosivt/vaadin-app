@@ -13,12 +13,20 @@ public class MainMenu extends MenuBar {
 
 //        this.addItem("Администрирование", new MenuItem("Установка БД", new CreateDBCommand()));
         this.createAdminMenuItem();
+        this.ImportDataToExcel();
     }
 
     private void createAdminMenuItem()
     {
-        MenuItem colds = this.addItem("Администрирование", null, null);
-        colds.addItem("Пересоздать БД", null, new CreateDBCommand());
+        MenuItem admin = this.addItem("Администрирование", null, null);
+        admin.addItem("Пересоздать БД", null, new CreateDBCommand());
+        return ;
+    }
+    private void ImportDataToExcel()
+    {
+        MenuItem importToExcel = this.addItem("Импорт", null, null);
+        importToExcel.addItem("Выгрузить полностью", null, null);
+        importToExcel.addItem("Выгрузить выделенное", null, null);
         return ;
     }
 }
