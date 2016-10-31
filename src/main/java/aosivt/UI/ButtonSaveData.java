@@ -1,8 +1,10 @@
 package aosivt.UI;
 
+import aosivt.AppData.GetAppData;
 import aosivt.AppData.SaveAppData;
 import aosivt.Entity.*;
 import aosivt.util.HibernateUtil;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import org.hibernate.Session;
@@ -75,14 +77,23 @@ public class ButtonSaveData extends Button {
         session.save(tableProtocol);
         transaction.commit();
 
-
         session.clear();
         session.close();
 
-        MainLayout.search_grid = null;
-        MainLayout.search_grid = new SearchGrid();
+//        MainLayout.search_grid = null;
+
+//        MainLayout.search_grid.setContainerDataSource(MainLayout.search_grid.getBeanGetAppData());
 
         this.clearAllTextField();
+//        BeanItemContainer<GetAppData> grid = MainLayout.search_grid.getBeanGetAppData();
+//
+//
+        MainLayout.search_grid = null;
+        MainLayout.search_grid = new SearchGrid();
+//        MainLayout.search_grid.setContainerDataSource(grid);
+//        MainLayout.search_grid.setFilterGrid(grid);
+        MainLayout.searchLayout = null;
+        MainLayout.searchLayout = new SearchLayout();
 
 
 //        HibernateUtil.shutdown();

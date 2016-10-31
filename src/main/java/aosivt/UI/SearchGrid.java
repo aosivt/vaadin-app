@@ -36,7 +36,7 @@ public class SearchGrid extends Grid {
         this.setColumnReorderingAllowed(true);
 
         this.setColumnOrder("id_protocol","name_organization","date_in","date_out","sum");
-        this.getColumn("id_protocol").setHeaderCaption("Номер протокола");
+        this.getColumn("id_protocol").setHeaderCaption("Номер документа");
         this.getColumn("name_organization").setHeaderCaption("Наименование организации");
         this.getColumn("date_in").setHeaderCaption("Дата возбуждения");
         this.getColumn("date_out").setHeaderCaption("Дата закрытия");
@@ -52,8 +52,6 @@ public class SearchGrid extends Grid {
 
             MainLayout.date_open.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_in()));
             MainLayout.date_close.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_out()));
-
-
         }
         );
     }

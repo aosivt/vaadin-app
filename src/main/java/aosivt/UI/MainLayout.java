@@ -29,6 +29,7 @@ public class MainLayout extends VerticalLayout{
     public static SearchTable search_table;
     public static SearchGrid search_grid;
 
+    public static SearchLayout searchLayout;
     public MainLayout()
     {
 
@@ -38,7 +39,8 @@ public class MainLayout extends VerticalLayout{
 
         this.addComponent(new EditLayout());
 
-        this.addComponent(new SearchLayout());
+        searchLayout = new SearchLayout();
+        this.addComponent(searchLayout);
 
 
 
@@ -87,5 +89,9 @@ public class MainLayout extends VerticalLayout{
 
 
         }
+    public void updateSearchGrid()
+    {
+        MainLayout.search_grid = new SearchGrid();
+    }
 
 }
