@@ -141,9 +141,6 @@ public class SearchTable extends Table {
 
         Query q = session.createQuery("From PivotTableProtocol");
 
-
-
-
         this.addItem(new Object[] {
                 new TextField("Edit"), new TextField("Edit"), new TextField("Edit"),
                 new TextField("Edit"), new TextField("Edit"), new TextField("Edit"),
@@ -178,8 +175,8 @@ public class SearchTable extends Table {
             appData.setDate_out(next.getDate_out()==null?"Не определена":next.getDate_out().toString());
             appData.setId_protocol(next.getProtocol_id());
             appData.setName_organization(next.getOrganization()==null?"Не определена":next.getOrganization().getName_organization());
-            appData.setReason(next.getReason()==null?"Не определена":next.getReason().getText_reason());
-            appData.setReview(next.getReview()==null?"Не определена":next.getReview().getText_review());
+//            appData.setReason(next.getReason()==null?"Не определена":next.getReason().getText_reason());
+//            appData.setReview(next.getReview()==null?"Не определена":next.getReview().getText_review());
             itemContainer.addBean(appData);
         }
         session.close();
@@ -247,8 +244,8 @@ public class SearchTable extends Table {
     }
 
     private void setColumnFiltering(boolean filtered) {
-//            // Add new TextFields to each column which filters the data from
-//            // that column
+            // Add new TextFields to each column which filters the data from
+            // that column
 //            String columnId = ExampleUtil.BUDGET_ITEM_NAME_PROPERTY_ID
 //                    .toString();
 //            TextField filter = getColumnFilter(columnId);

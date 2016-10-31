@@ -22,7 +22,7 @@ public class SearchGrid extends Grid {
     {
 
         this.setWidth(100, Unit.PERCENTAGE);
-        this.setHeight(30,Unit.PICAS);
+        this.setHeight(30, Unit.PICAS);
 
         BeanItemContainer<GetAppData> grid = this.getBeanGetAppData();
 

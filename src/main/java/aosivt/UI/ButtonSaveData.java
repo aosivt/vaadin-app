@@ -74,10 +74,14 @@ public class ButtonSaveData extends Button {
         session.save(tableProtocol);
         transaction.commit();
 
-        MainLayout.search_grid.setContainerDataSource(MainLayout.search_grid.getBeanGetAppData());
+
+
 
         session.clear();
         session.close();
+
+        MainLayout.search_grid = null;
+        MainLayout.search_grid = new SearchGrid();
 
         this.clearAllTextField();
 

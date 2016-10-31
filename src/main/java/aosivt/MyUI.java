@@ -33,6 +33,7 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
+
 //        test_insert();
         final VerticalLayout layout = new MainLayout();
 

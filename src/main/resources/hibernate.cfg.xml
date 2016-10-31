@@ -50,12 +50,13 @@
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">100</property>
         <property name="current_session_context_class">thread</property>
+        <property name="hibernate.order_updates">true</property>
+        <property name="hibernate.order_inserts">true</property>
 
 
 
-
-        <!-- Drop and re-create the database schema on startup
-        <property name="hbm2ddl.auto">create</property>-->
+        <!--&lt;!&ndash; Drop and re-create the database schema on startup-->
+        <!--<property name="hbm2ddl.auto">create</property>-->
 
         <mapping class="aosivt.Entity.Document" />
         <mapping class="aosivt.Entity.Organization" />
