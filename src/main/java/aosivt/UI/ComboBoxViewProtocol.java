@@ -7,6 +7,7 @@ import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Notification;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -26,9 +27,34 @@ public class ComboBoxViewProtocol extends ComboBox {
         this.setFilteringMode(FilteringMode.CONTAINS);
         this.setImmediate(true);
         this.setNullSelectionAllowed(false);
-        this.addValueChangeListener(e -> Notification.show("Value changed:",
-                String.valueOf(((ViewProtocol)(e.getProperty().getValue())).getView_protocol_id()),
-                Notification.Type.TRAY_NOTIFICATION));
+
+
+
+        //Allow new Items
+        this.setNewItemsAllowed(true);
+        this.setImmediate(true);
+
+//        this.addValueChangeListener(e -> Notification.show("Value changed:",
+//                String.valueOf(((ViewProtocol)(e.getProperty().getValue())).getView_protocol_id()),
+//                Notification.Type.TRAY_NOTIFICATION));
+
+        this.setNewItemHandler(s ->
+                {
+                    ViewProtocol viewProtocol = new ViewProtocol();
+                    viewProtocol.setView_protocol(s.toString());
+                    Session session = HibernateUtil.getSessionFactory().openSession();
+                    Transaction transaction = session.beginTransaction();
+                    session.save(viewProtocol);
+                    transaction.commit();
+                    session.close();
+                    Notification.show("Value changed:" + s.toString(),
+
+                            Notification.Type.TRAY_NOTIFICATION);
+
+                    MainLayout.view_protocol.setContainerDataSource(this.getBeanViewProtocol());
+//                    MainLayout.viewProtocol.setValue(organization);
+                }
+        );
 
     }
 

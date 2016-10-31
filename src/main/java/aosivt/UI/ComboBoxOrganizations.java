@@ -7,6 +7,7 @@ import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Notification;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -24,15 +25,37 @@ public class ComboBoxOrganizations extends ComboBox{
         this.setImmediate(true);
         this.setFilteringMode(FilteringMode.CONTAINS);
 
+        //Allow new Items
+        this.setNewItemsAllowed(true);
+        this.setImmediate(true);
+
         this.setNullSelectionAllowed(false);
 
-        this.addValueChangeListener(e -> Notification.show("Value changed:",
+        this.addValueChangeListener(e ->
+                Notification.show("Value changed:",
                 String.valueOf(((Organization)(e.getProperty().getValue())).getOrganization_id()),
                 Notification.Type.TRAY_NOTIFICATION));
         this.addDetachListener (e -> Notification.show("Value changed:!!!!!11111",
         String.valueOf(e.toString()),
         Notification.Type.TRAY_NOTIFICATION));
 
+            this.setNewItemHandler(s ->
+            {
+                Organization organization = new Organization();
+                organization.setName_organization(s.toString());
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Transaction transaction = session.beginTransaction();
+                session.save(organization);
+                transaction.commit();
+                session.close();
+                Notification.show("Value changed:" + s.toString(),
+
+                Notification.Type.TRAY_NOTIFICATION);
+
+                MainLayout.organization_name.setContainerDataSource(this.getBeanOrganization());
+                MainLayout.organization_name.setValue(organization);
+            }
+        );
 
 
 

@@ -59,7 +59,7 @@ public class MainLayout extends VerticalLayout{
             view_protocol.setSizeFull();
 
             organization_name = new ComboBoxOrganizations();
-            organization_name.setSizeFull();;
+            organization_name.setSizeFull();
 
             sum = new TextField("Сумма");
             sum.setValue("1");

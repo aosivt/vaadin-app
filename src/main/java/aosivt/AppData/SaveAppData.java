@@ -1,73 +1,89 @@
 package aosivt.AppData;
 
+import aosivt.Entity.*;
+
 import java.util.Date;
 
 /**
  * Created by oshchepkovayu on 20.10.16.
  */
 public final class SaveAppData {
-    private static Long id_protocol;
-    private static Long id_view_protocol;
-    private static Long id_organization;
 
-    private static Date date_in;
-    private static Date date_out;
+    private static Organization organization;
 
-    private static String name_organization;
-    private static String reason;
-    private static String review;
+    private static ViewProtocol viewProtocol;
+
+    private static Document document;
+
+    private static Reason reason;
+
+    private static Review review;
+
     private static double sum;
+
+    private static Date date_open;
+
+    private static Date date_close;
+
 
     public SaveAppData()
     {
     }
 
-    public static Long getId_protocol() {
-        return id_protocol;
+    public static Organization getOrganization() {
+        return organization;
     }
 
-    public static void setId_protocol(Long id_protocol) {
-        SaveAppData.id_protocol = id_protocol;
+    public static void setOrganization(Organization organization) {
+        SaveAppData.organization = organization;
     }
 
-    public static Long getId_view_protocol() {
-        return id_view_protocol;
+    public static Document getDocument() {
+        return document;
     }
 
-    public static void setId_view_protocol(Long id_view_protocol) {
-        SaveAppData.id_view_protocol = id_view_protocol;
+    public static void setDocument(Document document) {
+        SaveAppData.document = document;
     }
 
-    public static Date getDate_in() {
-        return date_in;
-    }
-
-    public static void setDate_in(Date date_in) {
-        SaveAppData.date_in = date_in;
-    }
-
-    public static Date getDate_out() {
-        return date_out;
-    }
-
-    public static void setDate_out(Date date_out) {
-        SaveAppData.date_out = date_out;
-    }
-
-    public static String getName_organization() {
-        return name_organization;
-    }
-
-    public static void setName_organization(String name_organization) {
-        SaveAppData.name_organization = name_organization;
-    }
-
-    public static String getReason() {
+    public static Reason getReason() {
         return reason;
     }
 
-    public static void setReason(String reason) {
+    public static void setReason(Reason reason) {
         SaveAppData.reason = reason;
+    }
+
+    public static Review getReview() {
+        return review;
+    }
+
+    public static void setReview(Review review) {
+        SaveAppData.review = review;
+    }
+
+    public static ViewProtocol getViewProtocol() {
+        return viewProtocol;
+    }
+
+    public static void setViewProtocol(ViewProtocol viewProtocol) {
+        SaveAppData.viewProtocol = viewProtocol;
+    }
+
+    public static Date getDate_open() {
+        return date_open;
+    }
+
+    public static void setDate_open(Date date_open) {
+        SaveAppData.date_open = date_open;
+    }
+
+    public static Date getDate_close() {
+        return date_close;
+    }
+
+    public static void setDate_close(Date date_close) {
+        SaveAppData.date_close = date_close;
     }
 
     public static double getSum() {
@@ -76,13 +92,5 @@ public final class SaveAppData {
 
     public static void setSum(double sum) {
         SaveAppData.sum = sum;
-    }
-
-    public static String getReview() {
-        return review;
-    }
-
-    public static void setReview(String review) {
-        SaveAppData.review = review;
     }
 }

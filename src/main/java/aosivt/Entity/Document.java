@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Document {
 
     @Id
-    @GeneratedValue
+
     private Long protocol_id;
 
     private String name_document;
