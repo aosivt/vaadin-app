@@ -24,7 +24,7 @@ public class ButtonSaveData extends Button {
     {
         String id_protocol = MainLayout.id_protocol.getValue().toString().replace("/","");
 
-        if (checkAllField()) {
+        if (this.checkAllField()) {
 
             SaveAppData.setOrganization(((Organization) MainLayout.organization_name.getValue()));
 
@@ -154,20 +154,23 @@ public class ButtonSaveData extends Button {
             Notification.show("Поле ИП документа не заполнено", Notification.Type.WARNING_MESSAGE);
             return false;
         }
-        else if (MainLayout.reason.getValue().toString().length()==0)
+        if (MainLayout.reason.getValue().toString().length()==0)
         {
             Notification.show("Поле Причина не заполнено", Notification.Type.WARNING_MESSAGE);
-            return false;
+            MainLayout.reason.setValue("Не заполнено");
+//            return false;
         }
-        else if (MainLayout.review.getValue().toString().length()==0)
+        if (MainLayout.review.getValue().toString().length()==0)
         {
             Notification.show("Поле Коментарий не заполнено", Notification.Type.WARNING_MESSAGE);
-            return false;
+            MainLayout.review.setValue("Не заполнено");
+//            return false;
         }
-        else if (MainLayout.review.getValue().toString().length()==0)
+        if (MainLayout.sum.getValue().toString().length()==0)
         {
             Notification.show("Поле Сумма не заполнено", Notification.Type.WARNING_MESSAGE);
-            return false;
+            MainLayout.sum.setValue("0");
+//            return false;
         }
 
         return true;

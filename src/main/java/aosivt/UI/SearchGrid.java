@@ -41,7 +41,7 @@ public class SearchGrid extends Grid {
 
 
         this.setColumnOrder("id_protocol","name_organization","date_in","date_out","sum");
-        this.getColumn("id_protocol").setHeaderCaption("Номер документа");
+        this.getColumn("id_protocol").setHeaderCaption("Номер ИП");
         this.getColumn("name_organization").setHeaderCaption("Наименование организации");
         this.getColumn("date_in").setHeaderCaption("Дата возбуждения");
         this.getColumn("date_out").setHeaderCaption("Дата закрытия");
@@ -66,8 +66,19 @@ public class SearchGrid extends Grid {
             MainLayout.review.setValue(((GetAppData) itemClickEvent.getItemId()).getReview().getText_review());
 
             MainLayout.sum.setValue(String.valueOf(((GetAppData)itemClickEvent.getItemId()).getSum()));
-            MainLayout.date_open.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_in().substring(0,10)));
-            MainLayout.date_close.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_out().substring(0,10)));
+
+            if (((GetAppData) itemClickEvent.getItemId()).getDate_in().equals("Не определена"))
+            {
+                MainLayout.date_open.setValue(null);
+            }
+            else {MainLayout.date_open.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_in().substring(0,10)));}
+
+            if (((GetAppData) itemClickEvent.getItemId()).getDate_out().equals("Не определена"))
+            {
+                MainLayout.date_close.setValue(null);
+            }
+            else {MainLayout.date_close.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_out().substring(0,10)));}
+
         }
         );
     }

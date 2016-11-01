@@ -13,7 +13,7 @@ public class CommentSumPanel extends Panel {
 public CommentSumPanel()
 {
 
-    final VerticalLayout commetsLayout = new VerticalLayout(MainLayout.reason,MainLayout.review);
+    final VerticalLayout commetsLayout = new VerticalLayout(MainLayout.date_close,MainLayout.reason);
     commetsLayout.setSpacing(true);
     commetsLayout.setSizeFull();
     this.setCaption("Причина и коментарии");

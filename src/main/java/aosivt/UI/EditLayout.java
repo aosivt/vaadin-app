@@ -40,19 +40,21 @@ this.generateBorderLayout();
 
     private void generateBorderLayout() {
         this.removeAllComponents();
-        this.setRows(3);
+        this.setRows(4);
         this.setColumns(3);
 
         final Component org_content = new OrganizationPanel();
 //        this.addComponent(north, 0, 0, 2, 0);
         this.addComponent(org_content);
 
-        final Component comment_content = new CommentSumPanel();
-//        this.addComponent(east, 2, 1);
-        this.addComponent(comment_content);
 
         final Component date_content = new DatePanel();
         this.addComponent(date_content);
+
+
+        final Component comment_content = new CommentSumPanel();
+//        this.addComponent(east, 2, 1);
+        this.addComponent(comment_content);
 
 
 //        this.addComponent(center, 1, 1);
@@ -63,10 +65,10 @@ this.generateBorderLayout();
 //        save_data.addClickListener(e -> SaveAppData.setComment(MainLayout.sum.getValue())
 //        );
 
-
-        this.addComponent(deleteData,0,2);
-        this.addComponent(updateData,1,2);
-        this.addComponent(save_data,2,2);
+        this.addComponent(MainLayout.review,0,2,2,2);
+        this.addComponent(deleteData,0,3);
+        this.addComponent(updateData,1,3);
+        this.addComponent(save_data,2,3);
 
 //        this.setRowExpandRatio(0, 1.0f);
 //        this.setRowExpandRatio(1, 5.0f);

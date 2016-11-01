@@ -39,6 +39,7 @@ public class MainLayout extends VerticalLayout{
 
         this.addComponent(new EditLayout());
 
+
         searchLayout = new SearchLayout();
         this.addComponent(searchLayout);
 
@@ -48,11 +49,11 @@ public class MainLayout extends VerticalLayout{
     public void init_all_field()
         {
             ProEntityManager manager = new ProEntityManager();
-            id_protocol = new TextField("Индетификатор протокола");
+            id_protocol = new TextField("Номер ИП");
             id_protocol.setSizeFull();
             id_protocol.setId("protocol");
-            id_protocol_doc = new TextField("ИП документ");
-            id_protocol_doc.setValue("1");
+            id_protocol_doc = new TextField("Документ по ИП");
+//            id_protocol_doc.setValue("1");
             id_protocol_doc.setSizeFull();
 
 
@@ -66,23 +67,25 @@ public class MainLayout extends VerticalLayout{
             organization_name.setSizeFull();
 
             sum = new TextField("Сумма");
-            sum.setValue("1");
+//            sum.setValue("1");
             sum.setSizeFull();
 
             reason = new TextField("Причина");
-            reason.setValue("1");
+//            reason.setValue("1");
             reason.setSizeFull();
 
             review = new TextField("Коментарий");
-            review.setValue("1");
+//            review.setValue("1");
             review.setSizeFull();
 
 
-            date_open = new DateField("Дата открытия");
-            date_open.setValue(new Date());
+            date_open = new DateField("Дата возбуждения ИП");
+            date_open.setSizeFull();
+//            date_open.setValue(new Date());
 
-            date_close = new DateField("Дата закрытия");
-            date_close.setValue(new Date());
+            date_close = new DateField("Дата прекращения ИП");
+            date_close.setSizeFull();
+//            date_close.setValue(new Date());
 
 
 

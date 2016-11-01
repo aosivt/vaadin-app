@@ -19,7 +19,7 @@ public class ComboBoxViewProtocol extends ComboBox {
 
     public ComboBoxViewProtocol()
     {
-        this.setCaption("Вид протокола");
+        this.setCaption("Вид документа по ИП");
 
         BeanItemContainer<ViewProtocol> itemContainer = this.getBeanViewProtocol();
         this.setContainerDataSource(itemContainer);
