@@ -6,14 +6,15 @@ import aosivt.util.HibernateUtil;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.event.FieldEvents;
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.jboss.jandex.Main;
 
 import java.sql.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,6 +35,10 @@ public class SearchGrid extends Grid {
         this.setFilterGrid(grid);
 
         this.setColumnReorderingAllowed(true);
+        this.setId("search_grid");
+
+
+
 
         this.setColumnOrder("id_protocol","name_organization","date_in","date_out","sum");
         this.getColumn("id_protocol").setHeaderCaption("Номер документа");
@@ -41,17 +46,28 @@ public class SearchGrid extends Grid {
         this.getColumn("date_in").setHeaderCaption("Дата возбуждения");
         this.getColumn("date_out").setHeaderCaption("Дата закрытия");
         this.getColumn("sum").setHeaderCaption("Сумма");
+        this.sort("id_protocol", SortDirection.DESCENDING);
 
         this.addItemClickListener(itemClickEvent ->
         {
             Notification.show(((GetAppData)itemClickEvent.getItemId()).getId_protocol().toString());
             String protocol_id = ((GetAppData)itemClickEvent.getItemId()).getId_protocol().toString();
+
             MainLayout.id_protocol.setValue(protocol_id);
 
-            MainLayout.sum.setValue(String.valueOf(((GetAppData)itemClickEvent.getItemId()).getSum()));
+            MainLayout.view_protocol.select(this.getContainViewProtocol(((GetAppData) itemClickEvent.getItemId()).getViewProtocol().getView_protocol()));
 
-            MainLayout.date_open.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_in()));
-            MainLayout.date_close.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_out()));
+            MainLayout.organization_name.select(this.getContainOrganization(((GetAppData) itemClickEvent.getItemId()).getName_organization()));
+
+            MainLayout.id_protocol_doc.setValue(((GetAppData) itemClickEvent.getItemId()).getDocument().getName_document());
+
+            MainLayout.reason.setValue(((GetAppData) itemClickEvent.getItemId()).getReason().getText_reason());
+
+            MainLayout.review.setValue(((GetAppData) itemClickEvent.getItemId()).getReview().getText_review());
+
+            MainLayout.sum.setValue(String.valueOf(((GetAppData)itemClickEvent.getItemId()).getSum()));
+            MainLayout.date_open.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_in().substring(0,10)));
+            MainLayout.date_close.setValue(Date.valueOf(((GetAppData) itemClickEvent.getItemId()).getDate_out().substring(0,10)));
         }
         );
     }
@@ -72,6 +88,11 @@ public class SearchGrid extends Grid {
             appData.setDate_out(next.getDate_out()==null?"Не определена":next.getDate_out().toString());
             appData.setId_protocol(next.getProtocol_id());
             appData.setName_organization(next.getOrganization()==null?"Не определена":next.getOrganization().getName_organization());
+            appData.setDocument(next.getDocument());
+            appData.setReason(next.getReason());
+            appData.setReview(next.getReview());
+            appData.setOrganization(next.getOrganization());
+            appData.setViewProtocol(next.getViewProtocol());
             itemContainer.addBean(appData);
         }
         session.close();
@@ -108,5 +129,48 @@ public class SearchGrid extends Grid {
             }
         });
         return filter;
+    }
+    public void updateGrid()
+    {
+        MainLayout.reason.setValue("");
+        MainLayout.review.setValue("");
+        MainLayout.id_protocol.setValue("");
+        MainLayout.id_protocol_doc.setValue("");
+        MainLayout.sum.setValue("");
+
+
+        BeanItemContainer<GetAppData> grid = this.getBeanGetAppData();
+        this.removeHeaderRow(1);
+        this.setContainerDataSource(grid);
+        this.setFilterGrid(grid);
+    }
+    public Object getContainViewProtocol(String _view_protocol)
+    {
+        Iterator _temp = MainLayout.view_protocol.getItemIds().iterator();
+        while (_temp.hasNext())
+        {
+            Object return_view_protocol = _temp.next();
+            if (return_view_protocol.toString().equals(_view_protocol.toString()))
+            {
+                return return_view_protocol;
+            }
+
+        }
+        return null;
+    }
+    public Object getContainOrganization(String _organization)
+    {
+        Iterator _temp = MainLayout.organization_name.getItemIds().iterator();
+
+        while (_temp.hasNext())
+        {
+            Object return_organization = _temp.next();
+            if (return_organization.toString().equals(_organization.toString()))
+            {
+                return return_organization;
+            }
+
+        }
+        return null;
     }
 }

@@ -1,10 +1,8 @@
 package aosivt.UI;
 
-import aosivt.AppData.GetAppData;
 import aosivt.AppData.SaveAppData;
 import aosivt.Entity.*;
 import aosivt.util.HibernateUtil;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import org.hibernate.Session;
@@ -26,23 +24,26 @@ public class ButtonSaveData extends Button {
     {
         String id_protocol = MainLayout.id_protocol.getValue().toString().replace("/","");
 
-        SaveAppData.setOrganization(((Organization)MainLayout.organization_name.getValue()));
+        if (checkAllField()) {
 
-        SaveAppData.setViewProtocol(((ViewProtocol)MainLayout.view_protocol.getValue()));
+            SaveAppData.setOrganization(((Organization) MainLayout.organization_name.getValue()));
 
-        SaveAppData.setDocument(this.createDocument(MainLayout.id_protocol_doc.getValue().toString(),id_protocol));
+            SaveAppData.setViewProtocol(((ViewProtocol) MainLayout.view_protocol.getValue()));
 
-        SaveAppData.setReason(this.createReason(MainLayout.reason.getValue().toString(),id_protocol));
+            SaveAppData.setDocument(this.createDocument(MainLayout.id_protocol_doc.getValue().toString(), id_protocol));
 
-        SaveAppData.setReview(this.createReview(MainLayout.review.getValue().toString(),id_protocol));
+            SaveAppData.setReason(this.createReason(MainLayout.reason.getValue().toString(), id_protocol));
 
-        SaveAppData.setDate_open((MainLayout.date_open.getValue()));
+            SaveAppData.setReview(this.createReview(MainLayout.review.getValue().toString(), id_protocol));
 
-        SaveAppData.setDate_close((MainLayout.date_close.getValue()));
+            SaveAppData.setDate_open((MainLayout.date_open.getValue()));
 
-        SaveAppData.setSum(Double.valueOf(MainLayout.sum.getValue()));
+            SaveAppData.setDate_close((MainLayout.date_close.getValue()));
+
+            SaveAppData.setSum(Double.valueOf(MainLayout.sum.getValue().replace(",", ".")));
 
         saveDataToDB();
+        }
     }
     private void saveDataToDB()
     {
@@ -55,6 +56,8 @@ public class ButtonSaveData extends Button {
 
         Organization organization= SaveAppData.getOrganization();
 //        session.save(organization);
+
+        ViewProtocol  viewProtocol = SaveAppData.getViewProtocol();
 
         Reason reason = SaveAppData.getReason();
         session.save(reason);
@@ -71,6 +74,7 @@ public class ButtonSaveData extends Button {
         tableProtocol.setOrganization_id(organization.getOrganization_id());
         tableProtocol.setView_protocol_id(SaveAppData.getViewProtocol().getView_protocol_id());
         tableProtocol.setOrganization(organization);
+        tableProtocol.setViewProtocol(viewProtocol);
         tableProtocol.setReview(review);
         tableProtocol.setReason(reason);
 
@@ -80,28 +84,13 @@ public class ButtonSaveData extends Button {
         session.clear();
         session.close();
 
-//        MainLayout.search_grid = null;
+        Notification.show("Данные сохранены для организации" + SaveAppData.getOrganization().getName_organization() ,Notification.Type.HUMANIZED_MESSAGE);
 
-//        MainLayout.search_grid.setContainerDataSource(MainLayout.search_grid.getBeanGetAppData());
-
-        this.clearAllTextField();
-//        BeanItemContainer<GetAppData> grid = MainLayout.search_grid.getBeanGetAppData();
-//
-//
-        MainLayout.search_grid = null;
-        MainLayout.search_grid = new SearchGrid();
-//        MainLayout.search_grid.setContainerDataSource(grid);
-//        MainLayout.search_grid.setFilterGrid(grid);
-        MainLayout.searchLayout = null;
-        MainLayout.searchLayout = new SearchLayout();
+        MainLayout.search_grid.updateGrid();
 
 
-//        HibernateUtil.shutdown();
-        Notification.show("Value changed:",
-                String.valueOf(SaveAppData.getDocument().getProtocol_id().toString()
 
-                ),
-                Notification.Type.TRAY_NOTIFICATION);
+
     }
 
     public Document createDocument(String _name_documnet, String _id_protocol)
@@ -126,12 +115,61 @@ public class ButtonSaveData extends Button {
         return review;
     }
 
-    public void clearAllTextField()
+
+    public boolean checkExistIdProtocol(String _id_protocol)
     {
-        MainLayout.reason.setValue("");
-        MainLayout.review.setValue("");
-        MainLayout.id_protocol.setValue("");
-        MainLayout.id_protocol_doc.setValue("");
-        MainLayout.sum.setValue("");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        PivotTableProtocol pivotTableProtocol = session.get(PivotTableProtocol.class,Long.parseLong(_id_protocol));
+        session.clear();
+        session.close();
+        return pivotTableProtocol != null;
+    }
+    public boolean checkAllField()
+    {
+        String id_protocol = MainLayout.id_protocol.getValue().toString().replace("/","");
+
+        if (id_protocol.length()==0)
+        {
+            Notification.show("Протокол не заполнен", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (checkExistIdProtocol(id_protocol))
+        {
+            Notification.show("Номер протокола существует", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (((Organization) MainLayout.organization_name.getValue())==null)
+        {
+            Notification.show("Организация не выбрана", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (((ViewProtocol) MainLayout.view_protocol.getValue())==null)
+        {
+            Notification.show("Вид документа не выбран не выбрана", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (MainLayout.id_protocol_doc.getValue().toString().length()==0)
+        {
+            Notification.show("Поле ИП документа не заполнено", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (MainLayout.reason.getValue().toString().length()==0)
+        {
+            Notification.show("Поле Причина не заполнено", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (MainLayout.review.getValue().toString().length()==0)
+        {
+            Notification.show("Поле Коментарий не заполнено", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+        else if (MainLayout.review.getValue().toString().length()==0)
+        {
+            Notification.show("Поле Сумма не заполнено", Notification.Type.WARNING_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 }

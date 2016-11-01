@@ -57,7 +57,9 @@ public class MainLayout extends VerticalLayout{
 
 
             view_protocol = new ComboBoxViewProtocol();
-            view_protocol.setContainerDataSource(manager.getProtocol_list());
+
+//            view_protocol.setValue(((ViewProtocol)view_protocol.getItemIds().iterator().next()).getView_protocol());
+//            view_protocol.select(((ViewProtocol)view_protocol.getItemIds().iterator().next()));
             view_protocol.setSizeFull();
 
             organization_name = new ComboBoxOrganizations();

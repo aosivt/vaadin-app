@@ -21,18 +21,28 @@ public class ComboBoxViewProtocol extends ComboBox {
     {
         this.setCaption("Вид протокола");
 
-        this.setContainerDataSource(this.getBeanViewProtocol());
+        BeanItemContainer<ViewProtocol> itemContainer = this.getBeanViewProtocol();
+        this.setContainerDataSource(itemContainer);
         this.setRequired(true);
         this.setImmediate(true);
         this.setFilteringMode(FilteringMode.CONTAINS);
         this.setImmediate(true);
         this.setNullSelectionAllowed(false);
+        this.setPageLength(10);
+//        this.setItemCaptionPropertyId("view_protocol");
 
 
+        //выбор первого значения
+
+
+//        this.updateSelected(((ViewProtocol)this.getItemIds().iterator().next()));
+//        this.select(((ViewProtocol)this.getItemIds().iterator().next()));
+//        this.select(itemContainer.getIdByIndex(0));
 
         //Allow new Items
         this.setNewItemsAllowed(true);
         this.setImmediate(true);
+
 
 //        this.addValueChangeListener(e -> Notification.show("Value changed:",
 //                String.valueOf(((ViewProtocol)(e.getProperty().getValue())).getView_protocol_id()),
@@ -76,4 +86,12 @@ public class ComboBoxViewProtocol extends ComboBox {
         return itemContainer;
 
     }
+    public void updateSelected(ViewProtocol _viewProtocol)
+    {
+        this.setItemCaptionMode(ItemCaptionMode.PROPERTY);
+        this.setItemCaptionPropertyId("name");
+
+        this.select(_viewProtocol);
+    }
+
 }

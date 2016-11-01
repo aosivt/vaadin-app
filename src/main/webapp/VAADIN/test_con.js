@@ -45,30 +45,13 @@
             _input.value = _output_slash
           }
         })
+        sort_grid();
         console.log(_input.value.length);
 
   }
-//
-//  window.onload = test_con();
-
-//                var observer = new MutationObserver(function(mutations) {
-//                    mutations.forEach(function(mutation) {
-//                      if (mutation.addedNodes) mutation.addedNodes
-//                      for (var i = 0; i < mutation.addedNodes.length; ++i) {
-//                            var node = mutation.addedNodes[i];
-//                        if(node.id==idWeAreLookingFor){
-//                            Do something and then disconnect the observer because we got what we where looking for
-//                            test_con();
-//                            observer.disconnect();
-//                        }
-//                      }
-//                    });
-//                  });
-//
-//
-//                  observer(document.body, {
-//                      childList: true
-//                    , subtree: true
-//                    , attributes: false
-//                    , characterData: false
-//                  });
+  function sort_grid()
+  {
+  var _grid = document.getElementById("search_grid");
+//  _grid.columns[0].sortable = true;
+//  _grid.sortOrder = [{column: 0, direction: 'desc'}];
+  }

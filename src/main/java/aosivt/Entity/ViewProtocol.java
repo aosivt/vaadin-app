@@ -13,6 +13,7 @@ import java.util.List;
 public class ViewProtocol {
 
 
+
     private static final long serialVersionUID = -7049957706738879274L;
 
     @Id

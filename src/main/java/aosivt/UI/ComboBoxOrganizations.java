@@ -24,6 +24,7 @@ public class ComboBoxOrganizations extends ComboBox{
 //        this.setRequired(true);
         this.setImmediate(true);
         this.setFilteringMode(FilteringMode.CONTAINS);
+//        this.setItemCaptionPropertyId("organization_id");
 
         //Allow new Items
         this.setNewItemsAllowed(true);
@@ -78,6 +79,12 @@ public class ComboBoxOrganizations extends ComboBox{
         session.close();
         return itemContainer;
 
+    }
+
+
+    public void updateSelected(Organization _org)
+    {
+        this.select(_org);
     }
 
 }
