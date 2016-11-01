@@ -26,7 +26,7 @@ public class MainMenu extends MenuBar {
     {
         MenuItem importToExcel = this.addItem("Импорт", null, null);
         importToExcel.addItem("Выгрузить полностью", null, null);
-        importToExcel.addItem("Выгрузить выделенное", null, null);
+        importToExcel.addItem("Выгрузить выделенное", null, new CommandExportToExcel());
         return ;
     }
 }

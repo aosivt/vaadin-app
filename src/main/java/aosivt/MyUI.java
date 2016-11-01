@@ -2,6 +2,7 @@ package aosivt;
 
 import aosivt.Entity.ViewProtocol;
 import aosivt.UI.MainLayout;
+import aosivt.WorkingWithExcel.WriteExcel;
 import aosivt.util.HibernateUtil;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
@@ -44,6 +45,17 @@ public class MyUI extends UI {
         );
         
         setContent(layout);
+        WriteExcel test = new WriteExcel();
+        test.setOutputFile(System.getProperty("user.dir") + "/test.xsl");
+        try {
+            test.write();
+        }
+        catch (Exception e)
+        {
+            System.out.print(e.getMessage());
+        }
+System.out.print("Норм");
+//    }
     }
 
 
