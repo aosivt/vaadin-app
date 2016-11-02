@@ -14,6 +14,8 @@ import jxl.write.biff.RowsExceededException;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -32,14 +34,19 @@ public class ReportExcel {
     public void write() throws IOException, WriteException {
 
         int j = 1;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        String _temp_dir = (System.getProperty("user.dir")
+                +(File.separator)+
+                "Report" +(File.separator)+
+                (format.format(new Date())));
         String _temp_input_file = inputFile;
-        while (new File(_temp_input_file).exists())
+        while (new File(_temp_dir + (File.separator)+ _temp_input_file).exists())
         {
             _temp_input_file = inputFile.split("\\.")[0].toString() + "("+ String.valueOf(j) +")." + inputFile.split("\\.")[1].toString();
             j++;
         }
 
-        inputFile = _temp_input_file;
+        inputFile = _temp_dir + (File.separator)+ _temp_input_file;
         _temp_input_file = null;
 
         File file = new File(inputFile);
