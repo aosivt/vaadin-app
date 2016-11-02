@@ -46,6 +46,12 @@ public class SearchGrid extends Grid {
         this.getColumn("date_in").setHeaderCaption("Дата возбуждения");
         this.getColumn("date_out").setHeaderCaption("Дата закрытия");
         this.getColumn("sum").setHeaderCaption("Сумма");
+        this.getColumn("document").setHidden(true);
+        this.getColumn("organization").setHidden(true);
+        this.getColumn("reason").setHidden(true);
+        this.getColumn("review").setHidden(true);
+        this.getColumn("viewProtocol").setHeaderCaption("Вид документа");
+
         this.sort("id_protocol", SortDirection.DESCENDING);
 
         this.addItemClickListener(itemClickEvent ->

@@ -1,12 +1,10 @@
 package aosivt.UI;
 
-import aosivt.ProjectEntityManager.ProEntityManager;
 import aosivt.UI.Menu.MainMenu;
+import com.vaadin.server.Page;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-
-import java.util.Date;
 
 /**
  * Created by oshchepkovayu on 20.10.16.
@@ -30,25 +28,35 @@ public class MainLayout extends VerticalLayout{
     public static SearchGrid search_grid;
 
     public static SearchLayout searchLayout;
+
+    public static boolean view_edit_form;
     public MainLayout()
     {
 
+        view_edit_form = Page.getCurrent().getLocation().getPath().toString().replace("/","").equals("Rjycnfynby");
+//        Notification.show();
         this.init_all_field();
+        if (!view_edit_form)
+        {
 
-        this.addComponent(new MainMenu());
+            searchLayout.setHeight(100, Unit.PICAS);
+            search_grid.setHeight(100,Unit.PICAS);
+        }
+        else
+        {
+            this.addComponent(new MainMenu());
+            this.addComponent(new EditLayout());
+        }
 
-        this.addComponent(new EditLayout());
 
-
-        searchLayout = new SearchLayout();
         this.addComponent(searchLayout);
 
 
 
     }
+
     public void init_all_field()
         {
-            ProEntityManager manager = new ProEntityManager();
             id_protocol = new TextField("Номер ИП");
             id_protocol.setSizeFull();
             id_protocol.setId("protocol");
@@ -92,11 +100,8 @@ public class MainLayout extends VerticalLayout{
 //        search_table = new SearchTable();
             search_grid = new SearchGrid();
 
-
+            searchLayout = new SearchLayout();
         }
-    public void updateSearchGrid()
-    {
-        MainLayout.search_grid = new SearchGrid();
-    }
+
 
 }

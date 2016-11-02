@@ -2,13 +2,14 @@ package aosivt;
 
 import aosivt.Entity.ViewProtocol;
 import aosivt.UI.MainLayout;
-import aosivt.WorkingWithExcel.WriteExcel;
 import aosivt.util.HibernateUtil;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.hibernate.Session;
@@ -38,24 +39,11 @@ public class MyUI extends UI {
 //        test_insert();
         final VerticalLayout layout = new MainLayout();
 
-        com.vaadin.ui.JavaScript.getCurrent().execute(
-//                "var field = document.getElementById('protocol').onkeyup = test_con();"
-                "test_con();"
-//                 "field.dispatchEvent(new Event('change'));"
-        );
+        com.vaadin.ui.JavaScript.getCurrent().execute("test_con();");
         
         setContent(layout);
-        WriteExcel test = new WriteExcel();
-        test.setOutputFile(System.getProperty("user.dir") + "/test.xsl");
-        try {
-            test.write();
-        }
-        catch (Exception e)
-        {
-            System.out.print(e.getMessage());
-        }
-System.out.print("Норм");
-//    }
+
+
     }
 
 
@@ -65,72 +53,7 @@ System.out.print("Норм");
 
     public static class MyUIServlet extends VaadinServlet {
     }
-    public static String getInfoHiber()
 
-    {
-        String s = "";
-
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        ViewProtocol viewProtocol = new ViewProtocol();
-        viewProtocol.setView_protocol("Постановление");
-        session.save(viewProtocol);
-
-
-//        Query q = session.createQuery("From ViewProtocol");
-
-//
-//        List<ViewProtocol> resultlist = q.list();
-//        for (ViewProtocol next : resultlist) {
-//            System.out.println("next employee: " + next.getView_protocol().toString());
-//
-//                s+=next.getView_protocol().toString() + "|||";
-//
-//        }
-
-        session.getTransaction().commit();
-//        session.clear();
-//        session.close();
-//        Department department = new Department("java");
-//        session.save(department);
-
-//        session.save(new Employee("Jakab Gipsz",department));
-//        session.save(new Employee("Captain Nemo",department));
-//
-//        session.getTransaction().commit();
-
-
-//        Query q = session.createQuery("From Person");
-//int i = 0;
-//        List<Person> resultList = q.list();
-//        System.out.println("num of employess:" + resultList.size());
-//        for (Person next : resultList) {
-//            System.out.println("next employee: " + next.getPerson_id().toString());
-//
-//            if (i<10)
-//            {
-//                i++;
-//                s+=next.getPerson_id().toString() + "|||";
-//
-//            }
-//            else{break;}
-//
-//        }
-
-        return s;
-    }
-    public static void test_insert()
-    {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-//
-        ViewProtocol viewProtocol = new ViewProtocol();
-        viewProtocol.setView_protocol_id(Long.getLong("1"));
-        viewProtocol.setView_protocol("Постановление");
-        session.save(viewProtocol);
-        transaction.commit();
-    }
 }
 //        final TextField name = new TextFieldIdentityProtocol(new TextField());
 

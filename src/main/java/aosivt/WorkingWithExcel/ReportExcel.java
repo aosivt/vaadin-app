@@ -3,7 +3,6 @@ package aosivt.WorkingWithExcel;
 import aosivt.AppData.GetAppData;
 import aosivt.UI.MainLayout;
 import com.vaadin.data.util.BeanItemContainer;
-import jxl.Cell;
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -15,7 +14,6 @@ import jxl.write.biff.RowsExceededException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -32,6 +30,18 @@ public class ReportExcel {
     }
 
     public void write() throws IOException, WriteException {
+
+        int j = 1;
+        String _temp_input_file = inputFile;
+        while (new File(_temp_input_file).exists())
+        {
+            _temp_input_file = inputFile.split("\\.")[0].toString() + "("+ String.valueOf(j) +")." + inputFile.split("\\.")[1].toString();
+            j++;
+        }
+
+        inputFile = _temp_input_file;
+        _temp_input_file = null;
+
         File file = new File(inputFile);
         file.createNewFile();
         WorkbookSettings wbSettings = new WorkbookSettings();
@@ -89,48 +99,46 @@ public class ReportExcel {
         while (_temp.hasNext())
         {
             appData = ((GetAppData)_temp.next());
+            //Номер ИП 0
             this.addLabel(sheet, 0, i, appData.getId_protocol().toString());
 
-            this.addLabel(sheet, 1, i, appData.getName_organization());
-
-            this.addLabel(sheet, 2, i, appData.getDate_in());
-            this.addLabel(sheet, 3, i, appData.getDate_out());
-
-            this.addLabel(sheet, 4, i, Double.valueOf(appData.getSum()).isNaN() ?
-                                       "Не заполненно":
-                                       String.valueOf(appData.getSum()));
-            this.addLabel(sheet, 5, i, appData.getDocument() == null ?
+            //Наименование организации 3
+            this.addLabel(sheet, 3, i, appData.getName_organization());
+            //Дата возбуждения 4
+            this.addLabel(sheet, 4, i, appData.getDate_in());
+            //Дата закрытия 5
+            this.addLabel(sheet, 5, i, appData.getDate_out());
+            //Сумма 8
+            this.addNumber(sheet, 8, i, Double.valueOf(appData.getSum()).isNaN() ?
+                                       0.0:
+                                       appData.getSum());
+            //Документ по ИП 1
+            this.addLabel(sheet, 1, i, appData.getDocument() == null ?
                     "Не заполненно":
                     appData.getDocument().getName_document());
+
+            //Причина 6
             this.addLabel(sheet, 6, i, appData.getReason() == null ?
                     "Не заполненно":
                     appData.getReason().getText_reason());
+
+            //Коментарий 7
             this.addLabel(sheet, 7, i, appData.getReview() == null ?
                     "Не заполненно":
                     appData.getReview().getText_review());
 
-            this.addLabel(sheet, 8, i, appData.getDocument().getPivotTableProtocol().getViewProtocol() == null ?
+            //Вид документа по ИП 2
+            this.addLabel(sheet, 2, i, appData.getDocument().getPivotTableProtocol().getViewProtocol() == null ?
                                         "Не заполненно":
                                        appData.getDocument().getPivotTableProtocol().getViewProtocol().getView_protocol());
-
             i++;
-        }
-//        StringBuffer buf = new StringBuffer();
-//        buf.append("SUM(A2:A10)");
-//        Formula f = new Formula(0, 10, buf.toString());
-//        sheet.addCell(f);
-//        buf = new StringBuffer();
-//        buf.append("SUM(B2:B10)");
-//        f = new Formula(1, 10, buf.toString());
-//        sheet.addCell(f);
 
-        // now a bit of text
-//        for (int i = 12; i < 20; i++) {
-//            // First column
-//            addLabel(sheet, 0, i, "Boring text " + i);
-//            // Second column
-//            addLabel(sheet, 1, i, "Another text");
-//        }
+        }
+        StringBuffer buf = new StringBuffer();
+        buf.append("SUM(I2:I"+i+")");
+        Formula f = new Formula(1, i+1, buf.toString());
+        sheet.addCell(f);
+        addCaption(sheet,0,i+1,"ИТОГО:");
     }
 
     private void addCaption(WritableSheet sheet, int column, int row, String s)
@@ -167,17 +175,29 @@ public class ReportExcel {
     {
 
         try {
-            this.addLabel(sheet, 0, 0, "Номер ИП");
-            this.addLabel(sheet, 1, 0, "Наименование организации");
-            this.addLabel(sheet, 2, 0, "Дата возбуждения");
-            this.addLabel(sheet, 3, 0, "Дата закрытия");
-            this.addLabel(sheet, 4, 0, "Сумма");
-            this.addLabel(sheet, 5, 0, "Документ по ИП");
-            this.addLabel(sheet, 6, 0, "Причина");
-            this.addLabel(sheet, 7, 0, "Коментарий");
-            this.addLabel(sheet, 8, 0, "Вид документа по ИП");
+            this.addCaption(sheet, 0, 0, "Номер ИП");
+            this.addCaption(sheet, 1, 0, "Документ по ИП");
+            this.addCaption(sheet, 2, 0, "Вид документа по ИП");
+            this.addCaption(sheet, 3, 0, "Наименование организации");
+            this.addCaption(sheet, 4, 0, "Дата возбуждения");
+            this.addCaption(sheet, 5, 0, "Дата закрытия");
+            this.addCaption(sheet, 6, 0, "Причина");
+            this.addCaption(sheet, 7, 0, "Коментарий");
+            this.addCaption(sheet, 8, 0, "Сумма");
+
+
+
         } catch (WriteException e) {
             e.printStackTrace();
         }
     }
+
+
+    /*Workbook workbook = Workbook.getWorkbook(new File("output.xls"));
+    Sheet sheet = workbook.getSheet(0);
+    Cell cell1 = sheet.getCell(0, 2);
+    System.out.println(cell1.getContents());
+    Cell cell2 = sheet.getCell(3, 4);
+    System.out.println(cell2.getContents());
+    workbook.close();*/
 }
