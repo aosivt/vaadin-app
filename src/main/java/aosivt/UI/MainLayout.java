@@ -29,17 +29,31 @@ public class MainLayout extends VerticalLayout{
     public static SearchLayout searchLayout;
 
     public static boolean view_edit_form;
+    public boolean test_view_edit_form = false;
     public static String string_view_edit_form;
+    public String test_string_view_edit_form = "";
     public static String place_bd_report;
     public MainLayout()
     {
+//        Notification.show(test_string_view_edit_form, Notification.Type.TRAY_NOTIFICATION);
+
+
         PopupView pop = new PopupView("Доступ к редактированию", new PopupLayout());
+
         pop.addPopupVisibilityListener(popupVisibilityEvent ->
                 {
-
-//                Notification.show("Получил фокус", Notification.Type.TRAY_NOTIFICATION);
+                PasswordField pass = (PasswordField)((PopupLayout)pop.getContent().getPopupComponent()).getComponent(0);
+                Notification.show(pass.getValue(), Notification.Type.TRAY_NOTIFICATION);
                 }
         );
+//        if (test_string_view_edit_form.length()==0)
+//        {
+//            test_string_view_edit_form = MainLayout.string_view_edit_form;
+//            test_view_edit_form = MainLayout.view_edit_form;
+//            MainLayout.view_edit_form = false;
+//            MainLayout.string_view_edit_form = "";
+//        }
+//        Notification.show(test_string_view_edit_form + "||" + ((PopupLayout)pop.getContent().getPopupComponent()).getPlace_dir(), Notification.Type.TRAY_NOTIFICATION);
         if (Page.getCurrent().getLocation().getPath().toString().replace("/","").equals("init start"))
         {
 
@@ -52,6 +66,7 @@ public class MainLayout extends VerticalLayout{
 
 
         this.init_all_field();
+//        if (!((PopupLayout)pop.getContent().getPopupComponent()).checkPassInsideBD(Page.getCurrent().getLocation().getPath().toString().replace("/","")))
         if (!view_edit_form)
         {
             this.addComponent(pop);
@@ -62,6 +77,8 @@ public class MainLayout extends VerticalLayout{
         {
             this.addComponent(new MainMenu());
             this.addComponent(new EditLayout());
+            MainLayout.view_edit_form = false;
+            MainLayout.string_view_edit_form = "";
         }
 
 
@@ -121,5 +138,11 @@ public class MainLayout extends VerticalLayout{
             searchLayout = new SearchLayout();
         }
 
+    public String getTest_string_view_edit_form() {
+        return test_string_view_edit_form;
+    }
 
+    public void setTest_string_view_edit_form(String test_string_view_edit_form) {
+        this.test_string_view_edit_form = test_string_view_edit_form;
+    }
 }

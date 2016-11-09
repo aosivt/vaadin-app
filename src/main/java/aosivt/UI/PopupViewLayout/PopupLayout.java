@@ -3,11 +3,13 @@ package aosivt.UI.PopupViewLayout;
 import aosivt.Entity.ConfigurationProperty;
 import aosivt.UI.MainLayout;
 import aosivt.util.HibernateUtil;
+import com.vaadin.server.Page;
 import com.vaadin.ui.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -18,6 +20,9 @@ public class PopupLayout extends VerticalLayout{
     TextField restore_pass;
     TextField place_dir_report;
     Button save_to_db ;
+    boolean check_pass = false;
+    String place_dir;
+
 
             public PopupLayout()
             {
@@ -36,10 +41,16 @@ public class PopupLayout extends VerticalLayout{
                             else {
                                 MainLayout.view_edit_form = this.pass.getValue().equals("Rjycnfynby");
                                 MainLayout.view_edit_form = this.checkPassInsideBD(this.pass.getValue());
+//                                this.setCheck_pass(this.checkPassInsideBD(this.pass.getValue()));
                                 MainLayout.string_view_edit_form = this.pass.getValue();
 
 
                                 Notification.show(MainLayout.view_edit_form ? "Да" : "Нет", Notification.Type.TRAY_NOTIFICATION);
+                                String t = Page.getCurrent().getLocation().toString();
+//                                java.security.MessageDigest.getInstance("MD5").digest(this.pass.getValue().getBytes()));
+
+//                                Page.getCurrent().setLocation(t + this.pass.getValue());
+
                                 getUI().getPage().reload();
                             }
                         }
@@ -67,6 +78,7 @@ public class PopupLayout extends VerticalLayout{
                 session.save(conf);
                 transaction.commit();
                 session.close();
+
             }
             else {Notification.show("МДА надо чего нить другое придумать!!!", Notification.Type.WARNING_MESSAGE);}
         }
@@ -81,7 +93,10 @@ public class PopupLayout extends VerticalLayout{
                 .list();
         if (!result.isEmpty())
         {
-            MainLayout.place_bd_report = ((ConfigurationProperty)result.get(0)).getDir_report();
+//            MainLayout.place_bd_report = ((ConfigurationProperty)result.get(0)).getDir_report();
+            this.setPlace_dir(((ConfigurationProperty)result.get(0)).getDir_report());
+            this.setCheck_pass(true);
+
         }
         return !result.isEmpty();
     }
@@ -100,6 +115,22 @@ public class PopupLayout extends VerticalLayout{
         }
 
         return true;
+    }
+
+    public boolean isCheck_pass() {
+        return check_pass;
+    }
+
+    public void setCheck_pass(boolean check_pass) {
+        this.check_pass = check_pass;
+    }
+
+    public String getPlace_dir() {
+        return place_dir;
+    }
+
+    public void setPlace_dir(String place_dir) {
+        this.place_dir = place_dir;
     }
 }
 
