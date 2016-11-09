@@ -35,10 +35,10 @@ public class ReportExcel {
 
         int j = 1;
         SimpleDateFormat format = new SimpleDateFormat("yyyy");
-        String _temp_dir = (System.getProperty("user.dir")
+        String _temp_dir = MainLayout.place_bd_report
                 +(File.separator)+
                 "Report" +(File.separator)+
-                (format.format(new Date())));
+                (format.format(new Date()));
         String _temp_input_file = inputFile;
         while (new File(_temp_dir + (File.separator)+ _temp_input_file).exists())
         {

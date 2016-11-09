@@ -1,5 +1,6 @@
 package aosivt.UI.Menu;
 
+import aosivt.UI.MainLayout;
 import aosivt.WorkingWithExcel.ReportExcel;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
@@ -21,21 +22,25 @@ public class CommandExportToExcel implements  MenuBar.Command  {
 
     @Override
     public void menuSelected(MenuBar.MenuItem menuItem) {
+        if (MainLayout.place_bd_report.length() == 0)
+        {
+            MainLayout.place_bd_report = new File(System.getProperty("user.dir")).toString();
+        }
         Notification.show(
-                System.getProperty("user.dir")+(File.separator)+"Report",
+                MainLayout.place_bd_report +(File.separator)+"Report",
                 Notification.Type.TRAY_NOTIFICATION
                         );
         SimpleDateFormat format = new SimpleDateFormat("yyyy");
-    if (!(new File(System.getProperty("user.dir")+(File.separator)+"Report").exists()))
+    if (!(new File(MainLayout.place_bd_report +(File.separator)+"Report").exists()))
     {
-        new File(System.getProperty("user.dir") + (File.separator) + "Report").mkdir();
+        new File(MainLayout.place_bd_report + (File.separator) + "Report").mkdir();
     }
-    if (!(new File(System.getProperty("user.dir")
+    if (!(new File(MainLayout.place_bd_report
             +(File.separator)+
             "Report" +(File.separator)+
             (format.format(new Date()))).exists()))
     {
-        new File((System.getProperty("user.dir")
+        new File((MainLayout.place_bd_report
                 +(File.separator)+
                 "Report" +(File.separator)+
                 (format.format(new Date())))).mkdir();

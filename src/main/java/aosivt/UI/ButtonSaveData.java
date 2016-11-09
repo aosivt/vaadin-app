@@ -16,6 +16,9 @@ public class ButtonSaveData extends Button {
     {
         this.setCaption("Сохранить данные");
         this.setSizeFull();
+        this.setId("save_button");
+//        this.setDisableOnClick(true);
+
         this.addClickListener(e -> this.saveData());
 
     }

@@ -65,5 +65,7 @@
         <mapping class="aosivt.Entity.Review" />
         <mapping class="aosivt.Entity.ViewProtocol" />
 
+        <mapping class="aosivt.Entity.ConfigurationProperty" />
+
     </session-factory>
 </hibernate-configuration>

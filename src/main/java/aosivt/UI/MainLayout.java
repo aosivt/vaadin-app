@@ -1,10 +1,9 @@
 package aosivt.UI;
 
 import aosivt.UI.Menu.MainMenu;
+import aosivt.UI.PopupViewLayout.PopupLayout;
 import com.vaadin.server.Page;
-import com.vaadin.ui.DateField;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 
 /**
  * Created by oshchepkovayu on 20.10.16.
@@ -30,15 +29,32 @@ public class MainLayout extends VerticalLayout{
     public static SearchLayout searchLayout;
 
     public static boolean view_edit_form;
+    public static String string_view_edit_form;
+    public static String place_bd_report;
     public MainLayout()
     {
+        PopupView pop = new PopupView("Доступ к редактированию", new PopupLayout());
+        pop.addPopupVisibilityListener(popupVisibilityEvent ->
+                {
 
-        view_edit_form = Page.getCurrent().getLocation().getPath().toString().replace("/","").equals("Rjycnfynby");
+//                Notification.show("Получил фокус", Notification.Type.TRAY_NOTIFICATION);
+                }
+        );
+        if (Page.getCurrent().getLocation().getPath().toString().replace("/","").equals("init start"))
+        {
+
+        }
+////        view_edit_form =
+//        view_edit_form = string_view_edit_form.equals("Rjycnfynby");
 //        Notification.show();
+
+
+
+
         this.init_all_field();
         if (!view_edit_form)
         {
-
+            this.addComponent(pop);
             searchLayout.setHeight(100, Unit.PICAS);
             search_grid.setHeight(100,Unit.PICAS);
         }
@@ -47,6 +63,8 @@ public class MainLayout extends VerticalLayout{
             this.addComponent(new MainMenu());
             this.addComponent(new EditLayout());
         }
+
+
 
 
         this.addComponent(searchLayout);

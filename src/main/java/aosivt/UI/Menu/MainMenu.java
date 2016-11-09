@@ -14,12 +14,15 @@ public class MainMenu extends MenuBar {
 //        this.addItem("Администрирование", new MenuItem("Установка БД", new CreateDBCommand()));
         this.createAdminMenuItem();
         this.ImportDataToExcel();
+
     }
 
     private void createAdminMenuItem()
     {
         MenuItem admin = this.addItem("Администрирование", null, null);
-        admin.addItem("Пересоздать БД", null, new CreateDBCommand());
+//        admin.addItem("Пересоздать БД", null, new CreateDBCommand());
+        admin.addItem("Сбросить пароль", null, new CommandLogOut());
+
         return ;
     }
     private void ImportDataToExcel()
